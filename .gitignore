@@ -1,0 +1,27 @@
+# Secrets - IMPORTANT!
+src/config/secrets.local.ts
+.env
+*.pem
+
+# Private files
+LAUNCH_CHECKLIST.md
+launch-checklist.md
+SPEC/init/priv-roadmap.md
+priv-roadmap.md
+
+# Build
+dist/
+node_modules/
+*.zip
+.temp-*
+
+# Cloudflare
+worker/.wrangler/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+#PLANNING
+plans/

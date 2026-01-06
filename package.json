@@ -1,0 +1,16 @@
+{
+  "name": "youtube-focus-feed",
+  "version": "1.0.0",
+  "description": "Chrome extension that filters YouTube home feed using natural language prompts",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/build.js && echo 'Watching for changes...'",
+    "build": "node scripts/build.js",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12"
+  }
+}

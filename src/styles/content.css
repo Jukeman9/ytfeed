@@ -1,0 +1,461 @@
+/* YouTube Focus Feed - Content Styles */
+
+/* Skeleton shimmer animation */
+@keyframes ytfeed-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Dark theme skeleton (YouTube default) */
+.ytfeed-skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.ytfeed-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #282828 0%, #383838 50%, #282828 100%);
+  background-size: 200% 100%;
+  animation: ytfeed-shimmer 1.2s ease-in-out infinite;
+  z-index: 10;
+  border-radius: 12px;
+}
+
+/* Light theme skeleton - auto-applies when YouTube switches theme */
+html:not([dark='true']) .ytfeed-skeleton::after {
+  background: linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%);
+  background-size: 200% 100%;
+}
+
+/* Fade-in transition for shown videos */
+.ytfeed-show {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.ytfeed-show.ytfeed-fade-in {
+  animation: ytfeed-fade-in 0.3s ease-in-out;
+}
+
+@keyframes ytfeed-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hidden videos - display none to collapse grid */
+.ytfeed-hide {
+  display: none !important;
+}
+
+/* Processing state - slightly dimmed */
+.ytfeed-processing {
+  opacity: 0.7;
+}
+
+/* Icon wrapper - handles hover for dropdown */
+.ytfeed-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+}
+
+/* Responsive - compact mode when searchbox hidden */
+@media (max-width: 656px) {
+  .ytfeed-icon-wrapper {
+    margin-right: 0;
+  }
+}
+
+/* Search bar icon styles - matches YouTube voice button */
+/* Light theme (default - when no dark attribute) */
+.ytfeed-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #030303;
+}
+
+.ytfeed-icon-container:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.ytfeed-icon-container.ytfeed-error {
+  color: #ff4444;
+}
+
+/* Dark theme - YouTube uses html[dark] attribute (can be empty string or any value) */
+html[dark] .ytfeed-icon-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f1f1f1;
+}
+
+html[dark] .ytfeed-icon-container:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Icon SVG */
+.ytfeed-icon-svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Error badge on icon */
+.ytfeed-error-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: #ff4444;
+  border-radius: 50%;
+}
+
+/* Settings dropdown - hidden by default */
+.ytfeed-settings-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  padding-top: 8px;
+  z-index: 9999;
+}
+
+/* Show on wrapper hover */
+.ytfeed-icon-wrapper:hover .ytfeed-settings-dropdown {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Settings button */
+.ytfeed-settings-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Light theme settings button (default) */
+.ytfeed-settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f2f2f2;
+  color: #0f0f0f;
+  border: none;
+  cursor: pointer;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.ytfeed-settings-btn:hover {
+  background: #e5e5e5;
+}
+
+/* Dark theme settings button */
+html[dark] .ytfeed-settings-btn {
+  background: #272727;
+  color: #f1f1f1;
+}
+
+html[dark] .ytfeed-settings-btn:hover {
+  background: #3f3f3f;
+}
+
+/* Modal styles */
+.ytfeed-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.ytfeed-modal-overlay.ytfeed-visible {
+  opacity: 1;
+}
+
+.ytfeed-modal {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  padding: 24px;
+  transform: scale(0.95);
+  transition: transform 0.2s ease-in-out;
+}
+
+.ytfeed-modal-overlay.ytfeed-visible .ytfeed-modal {
+  transform: scale(1);
+}
+
+/* Dark theme modal */
+.ytfeed-modal {
+  background-color: #212121;
+  color: #f1f1f1;
+}
+
+/* Light theme modal */
+html:not([dark='true']) .ytfeed-modal {
+  background-color: #ffffff;
+  color: #0f0f0f;
+}
+
+.ytfeed-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ytfeed-modal-title {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+.ytfeed-modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  transition: background-color 0.2s;
+}
+
+.ytfeed-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+html:not([dark='true']) .ytfeed-modal-close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.ytfeed-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ytfeed-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.ytfeed-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #3f3f3f;
+  font-size: 14px;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* Dark theme textarea */
+.ytfeed-textarea {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+.ytfeed-textarea:focus {
+  border-color: #3ea6ff;
+}
+
+.ytfeed-textarea::placeholder {
+  color: #717171;
+}
+
+/* Light theme textarea */
+html:not([dark='true']) .ytfeed-textarea {
+  background-color: #f2f2f2;
+  color: #0f0f0f;
+  border-color: #d9d9d9;
+}
+
+html:not([dark='true']) .ytfeed-textarea:focus {
+  border-color: #065fd4;
+}
+
+html:not([dark='true']) .ytfeed-textarea::placeholder {
+  color: #909090;
+}
+
+/* Toggle switch */
+.ytfeed-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ytfeed-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: #717171;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ytfeed-toggle.ytfeed-toggle-on {
+  background-color: #3ea6ff;
+}
+
+html:not([dark='true']) .ytfeed-toggle.ytfeed-toggle-on {
+  background-color: #065fd4;
+}
+
+.ytfeed-toggle::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.ytfeed-toggle.ytfeed-toggle-on::after {
+  transform: translateX(20px);
+}
+
+/* Button */
+.ytfeed-button {
+  padding: 10px 20px;
+  border-radius: 18px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ytfeed-button-primary {
+  background-color: #3ea6ff;
+  color: #0f0f0f;
+}
+
+.ytfeed-button-primary:hover {
+  background-color: #65b8ff;
+}
+
+html:not([dark='true']) .ytfeed-button-primary {
+  background-color: #065fd4;
+  color: #ffffff;
+}
+
+html:not([dark='true']) .ytfeed-button-primary:hover {
+  background-color: #0056b3;
+}
+
+.ytfeed-button-secondary {
+  background-color: transparent;
+  color: #3ea6ff;
+  border: 1px solid #3f3f3f;
+}
+
+.ytfeed-button-secondary:hover {
+  background-color: rgba(62, 166, 255, 0.1);
+}
+
+html:not([dark='true']) .ytfeed-button-secondary {
+  color: #065fd4;
+  border-color: #d9d9d9;
+}
+
+/* Stats display */
+.ytfeed-stats {
+  font-size: 13px;
+  color: #aaaaaa;
+  padding: 12px;
+  background-color: #181818;
+  border-radius: 8px;
+}
+
+html:not([dark='true']) .ytfeed-stats {
+  color: #606060;
+  background-color: #f2f2f2;
+}
+
+/* Empty state */
+.ytfeed-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #aaaaaa;
+  font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+html:not([dark='true']) .ytfeed-empty-state {
+  color: #606060;
+}
+
+.ytfeed-empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.ytfeed-empty-state-text {
+  font-size: 16px;
+}
+
+/* Hint text */
+.ytfeed-hint {
+  font-size: 12px;
+  color: #717171;
+  margin-top: 4px;
+}
+
+html:not([dark='true']) .ytfeed-hint {
+  color: #909090;
+}
+
+/* Button row */
+.ytfeed-button-row {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
